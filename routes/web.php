@@ -10,4 +10,4 @@ Route::middleware(["auth", "verified"])->group(function () {
 
 require __DIR__ . "/settings.php";
 
-Route::view("/admin", "admin")->name("admin");
+Route::get('/admin', manager::class)->name('admin');
