@@ -20,21 +20,8 @@ new class extends Component {
 };
 ?>
 
-<!DOCTYPE html>
-<html lang="de">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bildverwaltung</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-
 <div>
 
-    <body class="bg-gray-100 p-6">
 
         <div class="bg-white border border-gray-400 rounded-lg p-6 min-h-[90vh]">
             <div class="flex justify-between items-center mb-6">
@@ -111,5 +98,4 @@ new class extends Component {
 
         </div>
 
-    </body>
 </div>

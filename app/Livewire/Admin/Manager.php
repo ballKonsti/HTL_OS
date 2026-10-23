@@ -1,8 +1,10 @@
 <?php
 
+namespace App\Livewire\Admin;
+
 use Livewire\Component;
 
-new class extends Component
+class Manager extends Component
 {
     public $picture_url = '';
 
@@ -26,8 +28,6 @@ new class extends Component
 
     public function render()
     {
-        return view('livewire\component\admin\manager');
+        return view('components.admin.manager');
     }
-};
-?>
-
+}
