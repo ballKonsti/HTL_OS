@@ -6,17 +6,17 @@ use Livewire\Component;
 
 class Manager extends Component
 {
-    public $picture_url = '';
+    public string $picture_url = '';
 
-    public $picture_id = 0;
+    public int $picture_id = 0;
 
-    public $forward_id = 0;
+    public int $forward_id = 0;
 
-    public $right_id = 0;
+    public int $right_id = 0;
 
-    public $left_id = 0;
+    public int $left_id = 0;
 
-    public $back_id = 0;
+    public int $back_id = 0;
 
     public function save($picture_url)
     {
