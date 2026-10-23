@@ -18,9 +18,11 @@ class Manager extends Component
 
     public int $back_id = 0;
 
+    public $urls = [];
+
     public function save()
     {
-        echo 'hello world';
+        $this->urls[] = $this->picture_url;
     }
 
     public function render()
