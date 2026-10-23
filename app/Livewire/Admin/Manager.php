@@ -18,16 +18,13 @@ class Manager extends Component
 
     public int $back_id = 0;
 
-    public function save($picture_url)
+    public function save()
     {
-        $pictures = [];
-
-        $pictures[] = $picture_url;
-
+        echo 'hello world';
     }
 
     public function render()
     {
-        return view('components.admin.manager');
+        return view('components.admin.manager')->layout('layouts::admin');
     }
 }
