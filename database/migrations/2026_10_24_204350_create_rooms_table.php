@@ -16,10 +16,10 @@ return new class extends Migration
             $table->timestamps();
             $table->string('picture_url');
             $table->integer('picture_id')->unique();
-            $table->integer('forward_id');
-            $table->integer('right_id');
-            $table->integer('left_id');
-            $table->integer('back_id');
+            $table->integer('forward_id')->default(0);
+            $table->integer('right_id')->default(0);
+            $table->integer('left_id')->default(0);
+            $table->integer('back_id')->default(0);
 
         });
     }
