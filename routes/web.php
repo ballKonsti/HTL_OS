@@ -14,5 +14,6 @@ require __DIR__.'/settings.php';
 Route::get('admin2', Manager::class)->name('admin');
 
 Route::get('admin', function () {
-    return view('admin');
+    return view('admin-dashboard');
 });
+
