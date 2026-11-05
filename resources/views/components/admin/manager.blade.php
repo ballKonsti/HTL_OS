@@ -1,5 +1,4 @@
 <div>
-
     <div class="bg-white border border-gray-400 rounded-lg p-6 min-h-[90vh]">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-xl font-bold">Projekt</h1>
@@ -35,7 +34,10 @@
                 </ul>
 
                 <p class="mt-6 mb-2">Bilder hinzufügen:</p>
-                <input type="file" accept="image/*" multiple>
+                <div wire:submit="save">
+                    <input type="file" wire:model="photo" accept="image/*" multiple>
+
+                </div>
             </div>
 
 
@@ -64,7 +66,7 @@
 
         <!-- Unten rechts -->
         <div class="flex justify-end gap-3 mt-8">
-            <button wire:click="save" class="bg-gray-200 border rounded px-5 py-2 hover:bg-gray-300">
+            <button wire:click="save" type="submit" class="bg-gray-200 border rounded px-5 py-2 hover:bg-gray-300">
                 Speichern
             </button>
 
