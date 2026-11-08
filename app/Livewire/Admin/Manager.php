@@ -30,7 +30,7 @@ class Manager extends Component
     public function save()
     {
         $this->validate();
-        $this->photo->store(path: 'photos');
+        $this->photo->store('pictures', 'public');
     }
 
     public function render()
