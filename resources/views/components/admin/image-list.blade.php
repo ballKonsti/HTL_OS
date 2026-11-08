@@ -1,9 +1,6 @@
 <li>
-
-    <button class="w-full text-left border rounded p-2 hover:bg-gray-100">
-
+    <button class="w-full text-left border rounded p-2 bg-yellow-400 hover:bg-yellow-700">
         {{ $image }}
-
+        
     </button>
-
 </li>
