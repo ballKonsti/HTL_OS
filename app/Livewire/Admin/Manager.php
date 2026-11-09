@@ -13,24 +13,24 @@ class Manager extends Component
     #[Validate('required|image|max:100240')]
     public $photo;
 
-    public string $picture_url = '';
+    #[Validate('nullable|integer|exists:nodes,id')]
+    public ?int $forward_id = null;
 
-    public int $picture_id = 0;
+    #[Validate('nullable|integer|exists:nodes,id')]
+    public ?int $back_id = null;
 
-    public int $forward_id = 0;
+    #[Validate('nullable|integer|exists:nodes,id')]
+    public ?int $right_id = null;
 
-    public int $right_id = 0;
-
-    public int $left_id = 0;
-
-    public int $back_id = 0;
-
-    public $urls = [];
+    #[Validate('nullable|integer|exists:nodes,id')]
+    public ?int $left_id = null;
 
     public function save()
     {
         $this->validate();
+        dd($this->photo, $this->forward_id, $this->back_id, $this->left_id, $this->right_id);
         $this->photo->store('pictures', 'public');
+
     }
 
     public function render()
