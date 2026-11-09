@@ -35,6 +35,6 @@ class Manager extends Component
 
     public function render()
     {
-        return view('components.admin.manager')->layout('layouts::admin');
+        return view('admin-dashboard')->layout('layouts::admin');
     }
 }
