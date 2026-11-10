@@ -26,6 +26,9 @@ class Manager extends Component
     #[Validate('nullable|integer|exists:nodes,id')]
     public ?int $left_id = null;
 
+    #[Validate('required|alpha_dash|max:50|unique:nodes,name')]
+    public string $name = '';
+
     public function save()
     {
         $this->validate();
@@ -37,6 +40,7 @@ class Manager extends Component
             'back_id' => $this->back_id,
             'left_id' => $this->left_id,
             'right_id' => $this->right_id,
+            'name' => $this->name,
         ]);
 
         $this->reset();
