@@ -9,7 +9,7 @@
         </div>
 
         <div class="flex-1">
-            <x-admin.image-navigation :previewUrl="$previewUrl" />
+            <x-admin.image-navigation :nodes="$nodes" :previewUrl="$previewUrl" />
         </div>
 
     </div>

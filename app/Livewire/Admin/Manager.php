@@ -15,16 +15,16 @@ class Manager extends Component
     public $photo;
 
     #[Validate('nullable|integer|exists:nodes,id')]
-    public ?int $forward_id = null;
+    public ?string $forward_id = null;
 
     #[Validate('nullable|integer|exists:nodes,id')]
-    public ?int $back_id = null;
+    public ?string $back_id = null;
 
     #[Validate('nullable|integer|exists:nodes,id')]
-    public ?int $right_id = null;
+    public ?string $right_id = null;
 
     #[Validate('nullable|integer|exists:nodes,id')]
-    public ?int $left_id = null;
+    public ?string $left_id = null;
 
     public function save()
     {
@@ -40,6 +40,15 @@ class Manager extends Component
         ]);
 
         $this->reset();
+    }
+
+    private function nodeIdFor(?string $name): ?int
+    {
+        if (blank($name)) {
+            return null;
+        }
+
+        return Node::where('name', $name)->value('id');
     }
 
     public function render()
