@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="310" viewBox="0 0 900 310" role="img" aria-label="HTL OS Bootsequenz">
+  <style>
+    .mono { font-family: 'Courier New', Courier, monospace; font-size: 17px; }
+    .t { fill: #cbd5e1; opacity: 0; }
+    .ok { fill: #4ade80; font-weight: 700; }
+    .soon { fill: #facc15; font-weight: 700; }
+    .hi { fill: #facc15; }
+    .l0 { animation: l0 14s linear infinite; }
+    .l1 { animation: l1 14s linear infinite; }
+    .l2 { animation: l2 14s linear infinite; }
+    .l3 { animation: l3 14s linear infinite; }
+    .l4 { animation: l4 14s linear infinite; }
+    .l5 { animation: l5 14s linear infinite; }
+    .l6 { animation: l6 14s linear infinite; }
+    .l7 { animation: l7 14s linear infinite; }
+    @keyframes l0 { 0%,3.5% { opacity: 0; } 3.6%,94% { opacity: 1; } 97%,100% { opacity: 0; } }
+    @keyframes l1 { 0%,12% { opacity: 0; } 12.1%,94% { opacity: 1; } 97%,100% { opacity: 0; } }
+    @keyframes l2 { 0%,20.6% { opacity: 0; } 20.7%,94% { opacity: 1; } 97%,100% { opacity: 0; } }
+    @keyframes l3 { 0%,29.2% { opacity: 0; } 29.3%,94% { opacity: 1; } 97%,100% { opacity: 0; } }
+    @keyframes l4 { 0%,37.8% { opacity: 0; } 37.9%,94% { opacity: 1; } 97%,100% { opacity: 0; } }
+    @keyframes l5 { 0%,46.3% { opacity: 0; } 46.4%,94% { opacity: 1; } 97%,100% { opacity: 0; } }
+    @keyframes l6 { 0%,54.9% { opacity: 0; } 55%,94% { opacity: 1; } 97%,100% { opacity: 0; } }
+    @keyframes l7 { 0%,63.5% { opacity: 0; } 63.6%,94% { opacity: 1; } 97%,100% { opacity: 0; } }
+    .cursor { animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { .t { opacity: 1 !important; animation: none !important; } }
+  </style>
+
+  <rect x="1" y="1" width="898" height="308" rx="12" fill="#0b1020" stroke="#334155" stroke-width="2"/>
+  <path d="M1 13 a12 12 0 0 1 12 -12 h874 a12 12 0 0 1 12 12 v25 h-898 z" fill="#1e293b"/>
+  <circle cx="24" cy="20" r="6" fill="#f87171"/>
+  <circle cx="44" cy="20" r="6" fill="#facc15"/>
+  <circle cx="64" cy="20" r="6" fill="#4ade80"/>
+  <text class="mono" x="450" y="25" fill="#94a3b8" text-anchor="middle" font-size="14">htl-os — boot</text>
+
+  <g class="mono">
+    <text class="t l0" x="30" y="72"><tspan class="hi">HTL OS BIOS v1.0</tspan>  (c) 2026 HTL Villach</text>
+    <text class="t l1" x="30" y="100">Speicher prüfen ................ <tspan class="ok">[ OK ]</tspan></text>
+    <text class="t l2" x="30" y="128">/nodes mounten ................. <tspan class="ok">[ OK ]</tspan></text>
+    <text class="t l3" x="30" y="156">PostgreSQL verbinden ........... <tspan class="ok">[ OK ]</tspan></text>
+    <text class="t l4" x="30" y="184">Abteilung Informatik laden ..... <tspan class="ok">[ OK ]</tspan></text>
+    <text class="t l5" x="30" y="212">Abteilung Bautechnik laden ..... <tspan class="ok">[ OK ]</tspan></text>
+    <text class="t l6" x="30" y="240">Three.js-Szene rendern ......... <tspan class="soon">[ COMING SOON ]</tspan></text>
+    <text class="t l7" x="30" y="268"><tspan class="hi">&gt;</tspan> Willkommen! Scroll, um loszugehen.<tspan class="cursor hi"> █</tspan></text>
+  </g>
+
+  <rect x="40" y="290" width="820" height="6" rx="3" fill="#1e293b"/>
+  <rect x="40" y="290" width="0" height="6" rx="3" fill="#facc15"><animate attributeName="width" values="0;820;820;0" keyTimes="0;0.636;0.94;1" dur="14s" repeatCount="indefinite"/></rect>
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="200" viewBox="0 0 900 200" role="img" aria-label="Quest-Fortschritt: Akt I 5 von 8, Akt II 0 von 4, Akt III 0 von 3">
+  <!--
+    FORTSCHRITT AKTUALISIEREN:
+    Balkenbreite = 520 * erledigt / gesamt  (die 325 in den beiden <animate> von AKT I)
+    und den Text "5/8" usw. anpassen.
+  -->
+  <defs>
+    <linearGradient id="xp" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#facc15"/>
+      <stop offset="1" stop-color="#f43f5e"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="c1"><rect x="250" y="44" width="0" height="22" rx="4"><animate attributeName="width" values="0;325;325;0" keyTimes="0;0.3;0.9;1" dur="6s" repeatCount="indefinite"/></rect></clipPath>
+  </defs>
+
+  <style>
+    .mono { font-family: 'Courier New', Courier, monospace; }
+    .shine { animation: shine 2s linear infinite; }
+    @keyframes shine { from { transform: translateX(-120px); } to { transform: translateX(600px); } }
+    .blink { animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+    .lock { animation: pulse 2.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity: .4; } 50% { opacity: .9; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <rect width="900" height="200" rx="16" fill="#0b1020" stroke="#334155" stroke-width="2"/>
+
+  <text class="mono" x="24" y="26" fill="#facc15" font-size="13" font-weight="700" letter-spacing="2">QUEST LOG · DEADLINE 15.01.2027</text>
+
+  <g class="mono">
+    <!-- AKT I: 5/8 -->
+    <text x="24" y="61" fill="#f1f5f9" font-size="16" font-weight="700">AKT I</text>
+    <text x="90" y="61" fill="#94a3b8" font-size="14">Fundament</text>
+    <rect x="250" y="44" width="520" height="22" rx="4" fill="#1e293b" stroke="#475569"/>
+    <rect x="250" y="44" width="0" height="22" rx="4" fill="url(#xp)"><animate attributeName="width" values="0;325;325;0" keyTimes="0;0.3;0.9;1" dur="6s" repeatCount="indefinite"/></rect>
+    <g clip-path="url(#c1)"><rect class="shine" x="250" y="44" width="100" height="22" fill="url(#shine)"/></g>
+    <text x="790" y="61" fill="#facc15" font-size="16" font-weight="700">5/8<tspan class="blink"> ▲</tspan></text>
+
+    <!-- AKT II: 0/4 -->
+    <text x="24" y="111" fill="#f1f5f9" font-size="16" font-weight="700">AKT II</text>
+    <text x="100" y="111" fill="#94a3b8" font-size="14">Die Welt</text>
+    <rect x="250" y="94" width="520" height="22" rx="4" fill="#1e293b" stroke="#475569"/>
+    <text class="lock" x="510" y="110" fill="#64748b" font-size="13" text-anchor="middle">🔒 LOCKED</text>
+    <text x="790" y="111" fill="#64748b" font-size="16" font-weight="700">0/4</text>
+
+    <!-- AKT III: 0/3 -->
+    <text x="24" y="161" fill="#f1f5f9" font-size="16" font-weight="700">AKT III</text>
+    <text x="110" y="161" fill="#94a3b8" font-size="14">Finale</text>
+    <rect x="250" y="144" width="520" height="22" rx="4" fill="#1e293b" stroke="#475569"/>
+    <text class="lock" x="510" y="160" fill="#64748b" font-size="13" text-anchor="middle">🔒 LOCKED</text>
+    <text x="790" y="161" fill="#64748b" font-size="16" font-weight="700">0/3</text>
+  </g>
+</svg>

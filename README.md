@@ -1,15 +1,6 @@
 <div align="center">
 
-```
-██╗  ██╗████████╗██╗          ██████╗ ███████╗
-██║  ██║╚══██╔══╝██║         ██╔═══██╗██╔════╝
-███████║   ██║   ██║         ██║   ██║███████╗
-██╔══██║   ██║   ██║         ██║   ██║╚════██║
-██║  ██║   ██║   ███████╗    ╚██████╔╝███████║
-╚═╝  ╚═╝   ╚═╝   ╚══════╝     ╚═════╝ ╚══════╝
-```
-
-### 🎮 Ein interaktiver 3D-Rundgang durch die HTL Villach 🎮
+<img src=".github/assets/header.svg" alt="HTL OS – Ein interaktiver 3D-Rundgang durch die HTL Villach" width="100%">
 
 *Scroll dich durch die Gänge. Wähl deine Abteilung. Betritt die Räume. Finde, was versteckt ist.*
 
@@ -19,7 +10,6 @@
 ![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=threedotjs&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 
-`[ PRESS START ]`
 
 </div>
 
@@ -38,6 +28,10 @@
 
 > **Zielgruppe:** zukünftige Schüler:innen, Eltern und alle Besucher:innen beim Tag der offenen Tür.
 
+<div align="center">
+<img src=".github/assets/boot.svg" alt="HTL OS Bootsequenz" width="100%">
+</div>
+
 ---
 
 ## 🎮 Steuerung
@@ -55,24 +49,11 @@
 
 ## 🗺️ Die Welt: ein Node-Graph
 
-Die ganze Schule ist ein **Graph aus Nodes**. Jeder Node ist ein Foto und kennt seine Nachbarn in alle vier Richtungen:
+Die ganze Schule ist ein **Graph aus Nodes**. Jeder Node ist ein Foto und kennt seine Nachbarn in alle vier Richtungen. Der gelbe Punkt bist du:
 
-```
-                  ┌──────────┐
-                  │  Node 3  │
-                  │ Stiege 🪜│
-                  └────▲─────┘
-                       │ forward
-  ┌──────────┐    ┌────┴─────┐    ┌──────────┐
-  │  Node 4  │◄───┤  Node 2  ├───►│  Node 5  │
-  │ EDV-Saal │left│  Gang 🚶 │right│ Labor 🔬│
-  └──────────┘    └────▲─────┘    └──────────┘
-                       │ back
-                  ┌────┴─────┐
-                  │  Node 1  │
-                  │Eingang 🏫│
-                  └──────────┘
-```
+<div align="center">
+<img src=".github/assets/node-graph.svg" alt="Node-Graph: Eingang, Gang, Stiege, EDV-Saal und Labor sind verbunden" width="100%">
+</div>
 
 Ein `null` heißt **„Hier geht's nicht weiter.“** 🧱
 
@@ -106,9 +87,9 @@ Ein `null` heißt **„Hier geht's nicht weiter.“** 🧱
 
 ## 📋 Quest-Log
 
-```
-HAUPTQUEST: Die Schule digitalisieren                  DEADLINE: 15.01.2027
-```
+<div align="center">
+<img src=".github/assets/quest-xp.svg" alt="Quest-Fortschritt" width="100%">
+</div>
 
 **Akt I: Das Fundament** ⚔️
 - [x] Datenbank-Dungeon errichten (`nodes`-Tabelle)
