@@ -9,7 +9,7 @@
 
     <div class="sm:col-start-2 sm:row-start-2 flex justify-center">
         <div class="w-full max-w-80">
-            <x-admin.image-viewer />
+            <x-admin.image-viewer :preview-url="$previewUrl" />
         </div>
     </div>
 

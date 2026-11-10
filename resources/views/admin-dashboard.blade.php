@@ -1,3 +1,3 @@
 <div>
-    <x-admin.dashboard-layout :nodes="$nodes" />
+    <x-admin.dashboard-layout :nodes="$nodes" :previewUrl="$previewUrl" />
 </div>

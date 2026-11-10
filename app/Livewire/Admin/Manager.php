@@ -46,6 +46,8 @@ class Manager extends Component
     {
         return view('admin-dashboard', [
             'nodes' => Node::orderBy('id')->get(),
+            'previewUrl' => $this->photo?->isPreviewable() ? $this->photo->temporaryUrl() : null,
+
         ])->layout('layouts::admin');
 
     }
