@@ -1,3 +1,3 @@
 <div>
-    <x-admin.dashboard-layout />
+    <x-admin.dashboard-layout :nodes="$nodes" />
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\Node;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -28,13 +29,24 @@ class Manager extends Component
     public function save()
     {
         $this->validate();
-        dd($this->photo, $this->forward_id, $this->back_id, $this->left_id, $this->right_id);
-        $this->photo->store('pictures', 'public');
+        $path = $this->photo->store('pictures', 'public');
 
+        Node::create([
+            'pic_url' => $path,
+            'forward_id' => $this->forward_id,
+            'back_id' => $this->back_id,
+            'left_id' => $this->left_id,
+            'right_id' => $this->right_id,
+        ]);
+
+        $this->reset();
     }
 
     public function render()
     {
-        return view('admin-dashboard')->layout('layouts::admin');
+        return view('admin-dashboard', [
+            'nodes' => Node::orderBy('id')->get(),
+        ])->layout('layouts::admin');
+
     }
 }

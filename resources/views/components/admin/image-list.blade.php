@@ -1,6 +1,8 @@
 <li>
     <button class="w-full text-left border rounded p-2 bg-yellow-400 hover:bg-yellow-700">
-        {{ $image }}
-        
+        <img src="{{ asset('storage/' . $image->pic_url) }}" alt="Node {{ $image->id }}"
+            class="w-12 h-12 object-cover rounded inline-block mr-2">
+        Node #{{ $image->id }}
+
     </button>
 </li>

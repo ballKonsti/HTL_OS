@@ -4,6 +4,7 @@ namespace App\View\Components\Admin;
 
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 
 class DashboardLayout extends Component
@@ -11,7 +12,7 @@ class DashboardLayout extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(public Collection $nodes)
     {
         //
     }
