@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'teacher_image',
     'dialogue_text',
     'project_images',
+    'name',
 ])]
 
 class Node extends Model
