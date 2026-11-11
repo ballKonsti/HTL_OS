@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('nodes', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
             $table->string('pic_url');
             $table->foreignId('forward_id')->nullable()->constrained('nodes')->nullOnDelete();
             $table->foreignId('back_id')->nullable()->constrained('nodes')->nullOnDelete();

@@ -1,12 +1,7 @@
-<div class="flex justify-between items-center mb-6">
-
-    <h1 class="text-xl font-bold">Projekt</h1>
-
-    <x-admin.admin-button 
-    text="Admin" 
-    action=""
-    color="bg-zinc-950 
-    text-white 
-    hover:bg-yellow-700" />
-
+<div>
+    <input type="text" wire:model="name" placeholder="Name, z.B. ugg_1"
+        class="w-48 p-2 border border-gray-300 rounded-md">
+    @error('name')
+        <p class="text-red-600 text-xs mt-1 w-48">{{ $message }}</p>
+    @enderror
 </div>
