@@ -14,16 +14,16 @@ class Manager extends Component
     #[Validate('required|image|max:100240')]
     public $photo;
 
-    #[Validate('nullable|integer|exists:nodes,id')]
+    #[Validate('nullable|integer|exists:nodes,name')]
     public ?string $forward_id = null;
 
-    #[Validate('nullable|integer|exists:nodes,id')]
+    #[Validate('nullable|integer|exists:nodes,name')]
     public ?string $back_id = null;
 
-    #[Validate('nullable|integer|exists:nodes,id')]
+    #[Validate('nullable|integer|exists:nodes,name')]
     public ?string $right_id = null;
 
-    #[Validate('nullable|integer|exists:nodes,id')]
+    #[Validate('nullable|integer|exists:nodes,name')]
     public ?string $left_id = null;
 
     public function save()
@@ -33,10 +33,10 @@ class Manager extends Component
 
         Node::create([
             'pic_url' => $path,
-            'forward_id' => $this->forward_id,
-            'back_id' => $this->back_id,
-            'left_id' => $this->left_id,
-            'right_id' => $this->right_id,
+            'forward_id' => $this->nodeIdFor($this->forward_id),
+            'back_id' => $this->nodeIdFor($this->back_id),
+            'left_id' => $this->nodeIdFor($this->left_id),
+            'right_id' => $this->nodeIdFor($this->right_id),
         ]);
 
         $this->reset();
