@@ -1,4 +1,4 @@
-<div class="bg-white border border-gray-400 rounded-lg p-3 sm:p-4 md:p-6 min-h-screen w-full">
+<div class="bg-white border border-gray-400 rounded-lg p-3 sm:p-4 md:p-6 h-full w-full">
 
     <x-admin.admin-header />
 

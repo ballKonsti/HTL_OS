@@ -5,13 +5,11 @@
     </h2>
 
     <ul class="space-y-2">
-        @foreach($images as $image)
+        @foreach ($images as $image)
             <x-admin.image-list :image="$image" />
         @endforeach
     </ul>
 
-    <div class="mt-6">
-        <x-admin.image-upload />
-    </div>
+
 
 </div>
