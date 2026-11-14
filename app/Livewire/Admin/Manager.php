@@ -75,6 +75,20 @@ class Manager extends Component
         return Node::where('name', $name)->value('id');
     }
 
+    public function loadNext()
+    {
+        $currentId = $this->editingId ?? 0;
+        $nextId = $currentId + 1;
+
+        $nextNode = Node::find($nextId);
+
+        if ($nextNode) {
+            $this->edit($nextNode->id);
+        } else {
+            $this->reset();
+        }
+    }
+
     public function render()
     {
         return view('admin-dashboard', [
