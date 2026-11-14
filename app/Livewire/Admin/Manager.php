@@ -3,7 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Node;
-use Livewire\Attributes\Validate;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -11,43 +11,64 @@ class Manager extends Component
 {
     use WithFileUploads;
 
-    #[Validate('required|image|max:100240')]
     public $photo;
 
-    #[Validate('nullable|exists:nodes,name')]
     public ?string $forward_id = null;
 
-    #[Validate('nullable|exists:nodes,name')]
     public ?string $back_id = null;
 
-    #[Validate('nullable|exists:nodes,name')]
     public ?string $right_id = null;
 
-    #[Validate('nullable|exists:nodes,name')]
     public ?string $left_id = null;
 
-    #[Validate('required|alpha_dash|max:50|unique:nodes,name')]
     public string $name = '';
 
     public ?int $editingId = null;
 
     public ?string $existingPicUrl = null;
 
+    protected function rules(): array
+    {
+        return [
+            'photo' => [
+                Rule::requiredIf($this->editingId === null),
+                'nullable',
+                'image',
+                'max:100240',
+            ],
+            'forward_id' => ['nullable', 'exists:nodes,name'],
+            'back_id' => ['nullable', 'exists:nodes,name'],
+            'right_id' => ['nullable', 'exists:nodes,name'],
+            'left_id' => ['nullable', 'exists:nodes,name'],
+            'name' => [
+                'required',
+                'alpha_dash',
+                'max:50',
+                Rule::unique('nodes', 'name')->ignore($this->editingId),
+            ],
+        ];
+    }
+
     public function save()
     {
-        $this->validate();
-        $path = $this->photo->store('pictures', 'public');
+        $validated = $this->validate();
 
-        Node::create([
-            'pic_url' => $path,
-            'forward_id' => $this->nodeIdFor($this->forward_id),
-            'back_id' => $this->nodeIdFor($this->back_id),
-            'left_id' => $this->nodeIdFor($this->left_id),
-            'right_id' => $this->nodeIdFor($this->right_id),
-            'name' => $this->name,
-        ]);
+        $node = $this->editingId ? Node::findOrFail($this->editingId) : new Node;
+
+        if ($this->photo) {
+            $node->pic_url = $this->photo->store('pictures', 'public');
+        }
+
+        $node->forward_id = $this->nodeIdFor($this->forward_id);
+        $node->back_id = $this->nodeIdFor($this->back_id);
+        $node->left_id = $this->nodeIdFor($this->left_id);
+        $node->right_id = $this->nodeIdFor($this->right_id);
+        $node->name = $validated['name'];
+
+        $node->save();
 
         $this->reset();
+        $this->resetValidation();
     }
 
     public function edit(int $id): void
