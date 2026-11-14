@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'dialogue_text',
     'project_images',
     'name',
+    'start',
 ])]
 
 class Node extends Model
@@ -28,6 +29,7 @@ class Node extends Model
     {
         return [
             'project_images' => 'array',
+            'start' => 'boolean',
         ];
     }
 

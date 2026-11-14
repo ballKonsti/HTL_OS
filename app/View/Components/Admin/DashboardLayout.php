@@ -12,7 +12,7 @@ class DashboardLayout extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public Collection $nodes, public ?string $previewUrl = null)
+    public function __construct(public Collection $nodes, public ?string $previewUrl = null, public bool $start = false)
     {
         //
     }

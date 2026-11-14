@@ -16,6 +16,7 @@
 
     <div class="mt-6">
         <x-admin.admin-actions />
+        <x-admin.admin-button text="Startbild" action="saveStart" :color="$start ? 'bg-green-700 text-white' : 'bg-gray-600 text-black'" />
     </div>
 
 </div>

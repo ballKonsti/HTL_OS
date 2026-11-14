@@ -30,6 +30,7 @@ class NodeResource extends JsonResource
             'teacher_image' => $this->teacher_image ? Storage::url($this->teacher_image) : null,
             'dialogue_text' => $this->dialogue_text,
             'project_images' => collect($this->project_images ?? [])->all(),
+            'start' => $this->start,
         ];
     }
 }

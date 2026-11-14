@@ -27,7 +27,7 @@ return new class extends Migration
             $table->text('dialogue_text')->nullable();
             $table->json('project_images')->nullable();
             $table->timestamps();
-
+            $table->boolean('start')->default(false);
         });
     }
 
