@@ -4,6 +4,35 @@ if (tourImage) {
     let currentNode;
     let isTransitioning = false;
     let nodesById;
+    const prefetchedImages = new Set();
+    let nextForwardImage;
+
+    function prefetchImagesAhead(startNode, count = 5) {
+        let node = startNode;
+        const visitedNodeIds = new Set([Number(startNode.id)]);
+
+        for (let index = 0; index < count; index++) {
+            const nextNode = nodesById.get(Number(node.forward_id));
+
+            if (!nextNode || visitedNodeIds.has(Number(nextNode.id))) {
+                break;
+            }
+
+            const imageUrl = new URL(nextNode.pic_url, window.location.href).href;
+
+            if (!prefetchedImages.has(imageUrl)) {
+                const link = document.createElement("link");
+                link.rel = "prefetch";
+                link.as = "image";
+                link.href = imageUrl;
+                document.head.append(link);
+                prefetchedImages.add(imageUrl);
+            }
+
+            visitedNodeIds.add(Number(nextNode.id));
+            node = nextNode;
+        }
+    }
 
     const wait = (milliseconds) =>
         new Promise((resolve) => window.setTimeout(resolve, milliseconds));
@@ -12,7 +41,28 @@ if (tourImage) {
         const image = new Image();
         image.src = url;
         await image.decode();
+
+        return image;
     };
+
+    function prepareNextForwardImage(node) {
+        const nextNode = nodesById.get(Number(node.forward_id));
+
+        if (!nextNode?.pic_url) {
+            nextForwardImage = null;
+
+            return;
+        }
+
+        const imageUrl = new URL(nextNode.pic_url, window.location.href).href;
+        const promise = preloadImage(imageUrl);
+
+        nextForwardImage = { url: imageUrl, promise };
+
+        promise.catch((error) => {
+            console.error("Das nächste Bild konnte nicht vorbereitet werden.", error);
+        });
+    }
 
     async function moveWithScroll(event) {
         event.preventDefault();
@@ -32,12 +82,18 @@ if (tourImage) {
         isTransitioning = true;
 
         try {
-            await preloadImage(nextNode.pic_url);
+            const imageUrl = new URL(nextNode.pic_url, window.location.href).href;
+            const image =
+                nextForwardImage?.url === imageUrl
+                    ? await nextForwardImage.promise
+                    : await preloadImage(imageUrl);
 
-            tourImage.src = nextNode.pic_url;
+            tourImage.src = image.src;
             tourImage.alt = `Rundgang: ${nextNode.name}`;
 
             currentNode = nextNode;
+            prefetchImagesAhead(currentNode);
+            prepareNextForwardImage(currentNode);
         } catch (error) {
             console.error(
                 "Das nächste Bild konnte nicht geladen werden.",
@@ -69,6 +125,8 @@ if (tourImage) {
 
             tourImage.src = currentNode.pic_url;
             tourImage.alt = `Rundgang: ${currentNode.name}`;
+            prefetchImagesAhead(currentNode);
+            prepareNextForwardImage(currentNode);
 
             window.addEventListener("wheel", moveWithScroll, {
                 passive: false,
