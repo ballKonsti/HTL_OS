@@ -8,14 +8,11 @@ if (tourImage) {
     const wait = (milliseconds) =>
         new Promise((resolve) => window.setTimeout(resolve, milliseconds));
 
-    const preloadImage = (url) =>
-        new Promise((resolve, reject) => {
-            const image = new Image();
-
-            image.onload = resolve;
-            image.onerror = reject;
-            image.src = url;
-        });
+    const preloadImage = async (url) => {
+        const image = new Image();
+        image.src = url;
+        await image.decode();
+    };
 
     async function moveWithScroll(event) {
         event.preventDefault();
@@ -37,21 +34,15 @@ if (tourImage) {
         try {
             await preloadImage(nextNode.pic_url);
 
-            tourImage.classList.add("opacity-0");
-            await wait(150);
-
             tourImage.src = nextNode.pic_url;
             tourImage.alt = `Rundgang: ${nextNode.name}`;
 
             currentNode = nextNode;
-
-            requestAnimationFrame(() => {
-                tourImage.classList.remove("opacity-0");
-            });
-
-            await wait(300);
         } catch (error) {
-            console.error("Das nächste Bild konnte nicht geladen werden.", error);
+            console.error(
+                "Das nächste Bild konnte nicht geladen werden.",
+                error,
+            );
         } finally {
             isTransitioning = false;
         }
@@ -68,9 +59,7 @@ if (tourImage) {
             const payload = await response.json();
             const nodes = payload.data;
 
-            nodesById = new Map(
-                nodes.map((node) => [Number(node.id), node]),
-            );
+            nodesById = new Map(nodes.map((node) => [Number(node.id), node]));
 
             currentNode = nodes.find((node) => node.start);
 
