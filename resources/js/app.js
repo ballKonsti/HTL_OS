@@ -1,7 +1,7 @@
 const tourImage = document.querySelector("#tour-image");
 const tourStatus = document.querySelector("#tour-status");
 
-if (tourImage && tourStatus) {
+if (tourImage) {
     fetch("/api/nodes")
         .then((response) => {
             if (!response.ok) {
@@ -18,8 +18,6 @@ if (tourImage && tourStatus) {
             }
 
             tourImage.src = startNode.pic_url;
-            tourImage.alt = `Rundgang: ${startNode.name}`;
-            tourStatus.textContent = startNode.name;
         })
         .catch((error) => {
             tourStatus.textContent = error.message;

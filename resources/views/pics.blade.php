@@ -5,14 +5,11 @@
     @include('partials.head')
 </head>
 
-<body class="min-h-screen bg-stone-900 text-white">
+<body class="h-[100vh] w-[100vw]">
 
-    <img id="tour-image" alt="virtueller rundgang" class="mx-auto max-h-[100vh] max-w-[100vw]">
+    <img id="tour-image" alt="virtueller rundgang" class="mx-auto h-[100vh] w-[100vw]">
 
-    <p id="tour-status">
-        runggagn wird geladen
 
-    </p>
 
 
 
