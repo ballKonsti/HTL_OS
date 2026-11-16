@@ -37,7 +37,7 @@ class Manager extends Component
                 Rule::requiredIf($this->editingId === null),
                 'nullable',
                 'image',
-                'max:100240',
+                'max:51200',
             ],
             'forward_id' => ['nullable', 'exists:nodes,name'],
             'back_id' => ['nullable', 'exists:nodes,name'],
