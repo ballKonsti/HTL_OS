@@ -1,6 +1,43 @@
 const tourImage = document.querySelector("#tour-image");
 
 if (tourImage) {
+    let directionButtons = Array.from(
+        document.querySelectorAll("[data-tour-direction]"),
+    );
+
+    if (directionButtons.length === 0) {
+        directionButtons = ["left", "right"].map((direction) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.dataset.tourDirection = direction;
+            button.setAttribute(
+                "aria-label",
+                direction === "left"
+                    ? "Nach links abbiegen"
+                    : "Nach rechts abbiegen",
+            );
+            button.hidden = true;
+            button.textContent = direction === "left" ? "← Links" : "Rechts →";
+            Object.assign(button.style, {
+                position: "fixed",
+                top: "50%",
+                transform: "translateY(-50%)",
+                zIndex: "10",
+                [direction === "left" ? "left" : "right"]: "16px",
+                padding: "12px 16px",
+                border: "1px solid rgba(255, 255, 255, 0.25)",
+                borderRadius: "9999px",
+                background: "rgba(0, 0, 0, 0.55)",
+                color: "white",
+                font: "inherit",
+                cursor: "pointer",
+            });
+            document.body.append(button);
+
+            return button;
+        });
+    }
+
     let currentNode;
     let isTransitioning = false;
     let nodesById;
@@ -18,7 +55,8 @@ if (tourImage) {
                 break;
             }
 
-            const imageUrl = new URL(nextNode.pic_url, window.location.href).href;
+            const imageUrl = new URL(nextNode.pic_url, window.location.href)
+                .href;
 
             if (!prefetchedImages.has(imageUrl)) {
                 const link = document.createElement("link");
@@ -60,19 +98,43 @@ if (tourImage) {
         nextForwardImage = { url: imageUrl, promise };
 
         promise.catch((error) => {
-            console.error("Das nächste Bild konnte nicht vorbereitet werden.", error);
+            console.error(
+                "Das nächste Bild konnte nicht vorbereitet werden.",
+                error,
+            );
         });
     }
 
-    async function moveWithScroll(event) {
-        event.preventDefault();
+    function updateDirectionButtons() {
+        directionButtons.forEach((button) => {
+            const direction = button.dataset.tourDirection;
+            const nextNode = nodesById.get(
+                Number(currentNode[`${direction}_id`]),
+            );
 
-        if (isTransitioning || Math.abs(event.deltaY) < 20) {
+            button.hidden = !nextNode?.pic_url;
+
+            if (direction === "forward") {
+                button.textContent = "↑ Geradeaus";
+
+                return;
+            }
+
+            const label =
+                nextNode?.department ||
+                (direction === "left" ? "Links" : "Rechts");
+
+            button.textContent =
+                direction === "left" ? `← ${label}` : `${label} →`;
+        });
+    }
+
+    async function moveToDirection(direction) {
+        if (isTransitioning) {
             return;
         }
 
-        const nextNodeId =
-            event.deltaY > 0 ? currentNode.forward_id : currentNode.back_id;
+        const nextNodeId = currentNode[`${direction}_id`];
         const nextNode = nodesById.get(Number(nextNodeId));
 
         if (!nextNode?.pic_url) {
@@ -82,7 +144,8 @@ if (tourImage) {
         isTransitioning = true;
 
         try {
-            const imageUrl = new URL(nextNode.pic_url, window.location.href).href;
+            const imageUrl = new URL(nextNode.pic_url, window.location.href)
+                .href;
             const image =
                 nextForwardImage?.url === imageUrl
                     ? await nextForwardImage.promise
@@ -94,6 +157,7 @@ if (tourImage) {
             currentNode = nextNode;
             prefetchImagesAhead(currentNode);
             prepareNextForwardImage(currentNode);
+            updateDirectionButtons();
         } catch (error) {
             console.error(
                 "Das nächste Bild konnte nicht geladen werden.",
@@ -103,6 +167,22 @@ if (tourImage) {
             isTransitioning = false;
         }
     }
+
+    function moveWithScroll(event) {
+        event.preventDefault();
+
+        if (Math.abs(event.deltaY) < 20) {
+            return;
+        }
+
+        moveToDirection(event.deltaY > 0 ? "forward" : "back");
+    }
+
+    directionButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            moveToDirection(button.dataset.tourDirection);
+        });
+    });
 
     async function loadTour() {
         try {
@@ -125,6 +205,7 @@ if (tourImage) {
 
             tourImage.src = currentNode.pic_url;
             tourImage.alt = `Rundgang: ${currentNode.name}`;
+            updateDirectionButtons();
             prefetchImagesAhead(currentNode);
             prepareNextForwardImage(currentNode);
 
