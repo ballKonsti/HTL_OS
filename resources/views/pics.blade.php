@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     @include('partials.head')
 </head>
+<body class="relative h-dvh w-full overflow-hidden bg-stone-950 text-white antialiased">
+    <img id="tour-image" alt="Virtueller Rundgang" class="block h-dvh w-full object-contain" aria-busy="true">
 
-<body class="h-dvh w-full overflow-hidden relative z-20 ">
-    <img id="tour-image" alt="virtueller rundgang" class="block h-dvh w-full object-cover">
+    <div class="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_50%_100%,rgb(0_0_0_/_45%),transparent_42%)]" aria-hidden="true"></div>
 
-    <button type="button" data-tour-direction="left" aria-label="Nach links abbiegen" hidden
-        class="fixed left-4 top-1/2 z-10 inline-flex -translate-y-1/2 items-center rounded-full border border-white/20 bg-black/60 px-4 py-3 text-sm font-medium text-white shadow-lg backdrop-blur transition hover:bg-black/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:left-8">
-        ← Links
-    </button>
-    <button type="button" data-tour-direction="forward" aria-label="Geradeaus weitergehen" hidden
-        class="fixed bottom-6 left-1/2 z-10 inline-flex -translate-x-1/2 items-center rounded-full border border-white/20 bg-black/60 px-4 py-3 text-sm font-medium text-white shadow-lg backdrop-blur transition hover:bg-black/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
-        ↑ Geradeaus
-    </button>
-    <button type="button" data-tour-direction="right" aria-label="Nach rechts abbiegen" hidden
-        class="fixed right-4 top-1/2 z-10 inline-flex -translate-y-1/2 items-center rounded-full border border-white/20 bg-black/60 px-4 py-3 text-sm font-medium text-white shadow-lg backdrop-blur transition hover:bg-black/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:right-8">
-        Rechts →
-    </button>
+    <div id="tour-loading" class="pointer-events-none fixed inset-0 z-20 grid place-items-center bg-stone-950/55 backdrop-blur-sm">
+        <div class="glass-panel rounded-2xl px-5 py-4 text-center shadow-2xl">
+            <div class="mx-auto mb-3 size-7 animate-spin rounded-full border-2 border-pink-100/25 border-t-pink-200" aria-hidden="true"></div>
+            <p class="text-sm font-medium text-white">Rundgang wird geladen …</p>
+        </div>
+    </div>
 
+    <p id="tour-status" class="pointer-events-none fixed inset-x-4 bottom-24 z-30 text-center text-sm text-white" aria-live="polite"></p>
 
-
+    <x-tour.hud />
+    <x-tour.enter-prompt />
+    <x-tour.room-view />
 </body>
-
 </html>

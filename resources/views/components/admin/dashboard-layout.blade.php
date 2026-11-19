@@ -15,7 +15,12 @@
     </div>
 
     <div class="glass-panel flex shrink-0 flex-col gap-3 rounded-2xl p-3 sm:flex-row sm:items-center sm:justify-between sm:p-4">
-        <x-admin.admin-actions />
+        <div class="flex flex-wrap gap-3 sm:justify-end">
+            <x-admin.admin-actions />
+            @if ($editingId)
+                <button type="button" wire:click="deleteNode({{ $editingId }})" wire:confirm="Diesen Node samt Bild wirklich löschen?" class="inline-flex min-h-11 items-center justify-center rounded-xl border border-rose-300/20 px-4 py-2.5 text-sm font-semibold text-rose-100 transition hover:border-rose-200/50 hover:bg-rose-300/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-200">Node löschen</button>
+            @endif
+        </div>
         <x-admin.admin-button
             :text="$start ? 'Startbild aktiv' : 'Als Startbild festlegen'"
             action="saveStart"

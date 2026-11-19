@@ -19,14 +19,14 @@
             <div class="mt-12">
                 <div class="mb-3 flex items-center justify-between text-xs text-slate-300/70">
                     <span id="boot-text">Rundgang wird vorbereitet …</span>
-                    <span>100%</span>
+                    <span>Bereit</span>
                 </div>
                 <div class="h-2 overflow-hidden rounded-full bg-white/10">
-                    <div id="boot-progress" class="gradient-accent h-full w-full rounded-full shadow-[0_0_18px_rgba(230,163,184,0.25)]"></div>
+                    <div id="boot-progress" class="gradient-accent h-full w-0 rounded-full shadow-[0_0_18px_rgba(230,163,184,0.25)] transition-[width] duration-500"></div>
                 </div>
             </div>
 
-            <button id="start-tour" type="button" class="gradient-accent mt-8 inline-flex min-h-12 items-center justify-center gap-3 rounded-xl px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg shadow-pink-200/15 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-100 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-900">
+            <button id="start-tour" type="button" data-tour-url="{{ route('Rundgang') }}" disabled class="gradient-accent mt-8 inline-flex min-h-12 items-center justify-center gap-3 rounded-xl px-6 py-3 text-sm font-semibold text-stone-950 shadow-lg shadow-pink-200/15 transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-100 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-900">
                 Rundgang starten <span aria-hidden="true">→</span>
             </button>
         </main>
