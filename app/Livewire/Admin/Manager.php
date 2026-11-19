@@ -4,7 +4,9 @@ namespace App\Livewire\Admin;
 
 use App\Models\Node;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -53,13 +55,15 @@ class Manager extends Component
         ];
     }
 
-    public function save()
+    public function save(): void
     {
         $validated = $this->validate();
 
         $node = $this->editingId ? Node::findOrFail($this->editingId) : new Node;
+        $replacedPhoto = null;
 
         if ($this->photo) {
+            $replacedPhoto = $node->pic_url;
             $node->pic_url = $this->photo->store('pictures', 'public');
         }
 
@@ -71,8 +75,11 @@ class Manager extends Component
         $this->start = (bool) $node->start;
         $node->save();
 
-        $this->reset();
-        $this->resetValidation();
+        if ($replacedPhoto && $replacedPhoto !== $node->pic_url) {
+            Storage::disk('public')->delete($replacedPhoto);
+        }
+
+        $this->resetForm();
     }
 
     public function edit(int $id): void
@@ -99,17 +106,20 @@ class Manager extends Component
         return Node::where('name', $name)->value('id');
     }
 
-    public function loadNext()
+    public function loadNext(): void
     {
-        $currentId = $this->editingId ?? 0;
-        $nextId = $currentId + 1;
-
-        $nextNode = Node::find($nextId);
+        $nextNode = Node::query()
+            ->when(
+                $this->editingId !== null,
+                fn ($query) => $query->where('id', '>', $this->editingId),
+            )
+            ->orderBy('id')
+            ->first();
 
         if ($nextNode) {
             $this->edit($nextNode->id);
         } else {
-            $this->reset();
+            $this->resetForm();
         }
     }
 
@@ -139,12 +149,45 @@ class Manager extends Component
         $this->start = ! $isCurrentlyStart;
     }
 
-    public function render()
+    public function deleteNode(int $id): void
+    {
+        $node = Node::findOrFail($id);
+        $picUrl = $node->pic_url;
+
+        DB::transaction(function () use ($node): void {
+            $node->delete();
+        });
+
+        Storage::disk('public')->delete($picUrl);
+
+        if ($this->editingId === $id) {
+            $this->resetForm();
+        }
+    }
+
+    private function resetForm(): void
+    {
+        $this->reset([
+            'photo',
+            'forward_id',
+            'back_id',
+            'right_id',
+            'left_id',
+            'name',
+            'editingId',
+            'existingPicUrl',
+            'start',
+        ]);
+        $this->resetValidation();
+    }
+
+    public function render(): View
     {
         return view('admin-dashboard', [
             'nodes' => Node::orderBy('id')->get(),
             'previewUrl' => $this->photo?->isPreviewable() ? $this->photo->temporaryUrl() : ($this->existingPicUrl ? asset('storage/'.$this->existingPicUrl) : null),
             'start' => $this->start,
+            'editingId' => $this->editingId,
         ])->layout('layouts::admin');
 
     }

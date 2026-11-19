@@ -14,3 +14,8 @@ test('authenticated users can visit the dashboard', function () {
     $response = $this->get(route('dashboard'));
     $response->assertOk();
 });
+
+test('guests cannot access the node editor', function () {
+    $this->get(route('admin'))
+        ->assertRedirect(route('login'));
+});
