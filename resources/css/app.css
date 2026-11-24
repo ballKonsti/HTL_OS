@@ -105,6 +105,84 @@ select:focus[data-flux-control] {
     background-clip: padding-box;
 }
 
+.graph-viewport {
+    cursor: grab;
+    background-color: rgb(0 0 0 / 12%);
+    background-image: radial-gradient(rgb(255 220 232 / 17%) 1px, transparent 1px);
+    background-position: 0 0;
+    background-size: 24px 24px;
+}
+
+.graph-viewport.is-panning,
+.graph-viewport.is-dragging {
+    cursor: grabbing;
+}
+
+.graph-canvas {
+    position: relative;
+    width: 30000px;
+    height: 30000px;
+    transform-origin: 0 0;
+    will-change: transform;
+}
+
+.graph-node {
+    position: absolute;
+    display: grid;
+    width: 228px;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid rgb(255 220 232 / 18%);
+    border-radius: 16px;
+    background: rgb(38 32 35 / 94%);
+    box-shadow: 0 14px 38px -26px rgb(0 0 0 / 92%), inset 0 1px 0 rgb(255 255 255 / 10%);
+    color: rgb(255 255 255);
+    text-align: left;
+    cursor: grab;
+    transition: border-color 150ms ease, box-shadow 150ms ease, opacity 150ms ease;
+}
+
+.graph-node:hover,
+.graph-node.is-selected {
+    border-color: rgb(251 207 232 / 75%);
+    box-shadow: 0 0 0 3px rgb(244 114 182 / 15%), 0 14px 38px -26px rgb(0 0 0 / 92%);
+}
+
+.graph-node.is-filtered {
+    opacity: 0.16;
+    pointer-events: none;
+}
+
+.graph-node img,
+.graph-node__placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.graph-node__placeholder {
+    display: grid;
+    place-items: center;
+    border: 1px solid rgb(255 220 232 / 15%);
+    background: rgb(255 255 255 / 4%);
+    color: rgb(251 207 232);
+}
+
+.graph-edge {
+    fill: none;
+    stroke-width: 2;
+    opacity: 0.68;
+    marker-end: url(#graph-arrow);
+}
+
+.graph-edge--forward { color: #f9a8d4; stroke: #f9a8d4; }
+.graph-edge--back { color: #c4b5fd; stroke: #c4b5fd; }
+.graph-edge--left { color: #93c5fd; stroke: #93c5fd; }
+.graph-edge--right { color: #a7f3d0; stroke: #a7f3d0; }
+
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
