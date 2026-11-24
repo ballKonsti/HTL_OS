@@ -5,12 +5,15 @@
         <p class="text-sm text-stone-300/80">Bilder und Verbindungen für den Rundgang verwalten.</p>
     </div>
 
-    <div class="w-full sm:max-w-xs">
-        <label for="node-name" class="mb-2 block text-sm font-medium text-stone-200">Node-Name</label>
-        <input id="node-name" type="text" wire:model="name" placeholder="z. B. ugg_1"
-            class="w-full rounded-xl border border-pink-100/10 bg-black/20 px-4 py-3 text-sm text-white placeholder:text-stone-400/60 focus:border-pink-200/50 focus:outline-none focus:ring-2 focus:ring-pink-200/15">
-    @error('name')
-            <p class="mt-2 text-xs text-rose-200">{{ $message }}</p>
-    @enderror
+    <div class="flex w-full flex-col gap-3 sm:max-w-xs">
+        <a href="{{ route('admin.graph') }}" class="glass-panel-soft inline-flex min-h-10 items-center justify-center rounded-xl px-3 text-sm font-semibold text-stone-100 transition hover:border-pink-200/25 hover:text-white">Graph-Ansicht öffnen</a>
+        <div>
+            <label for="node-name" class="mb-2 block text-sm font-medium text-stone-200">Node-Name</label>
+            <input id="node-name" type="text" wire:model="name" placeholder="z. B. ugg_1"
+                class="w-full rounded-xl border border-pink-100/10 bg-black/20 px-4 py-3 text-sm text-white placeholder:text-stone-400/60 focus:border-pink-200/50 focus:outline-none focus:ring-2 focus:ring-pink-200/15">
+            @error('name')
+                <p class="mt-2 text-xs text-rose-200">{{ $message }}</p>
+            @enderror
+        </div>
     </div>
 </header>

@@ -9,6 +9,7 @@ Route::view('/', 'home')->name('home');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::get('admin', Manager::class)->name('admin');
+    Route::view('admin/graph', 'admin-graph')->name('admin.graph');
 });
 
 require __DIR__.'/settings.php';
